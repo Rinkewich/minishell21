@@ -16,7 +16,8 @@ void	init_shell(t_shell *shell)
 {
 	shell->exit_flag = 0;
 	shell->env_list = NULL;
-	gsigint = 0;
+	g_sig.sigint = 0;
+	g_sig.sigquit = 0;
 }
 
 void	init_env(t_shell *shell, char **envp)

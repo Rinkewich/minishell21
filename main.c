@@ -13,7 +13,7 @@
 #include "minishell.h"
 #include "get_next_line.h"
 
-int gsigint;
+t_sig g_sig;
 
 int	in_builtins(char *cmd)
 {
@@ -30,7 +30,12 @@ static void	handler(int signo, siginfo_t *info, void *context)
 	{
 		printf("\b\b  ");
 		printf("\n");
-		gsigint = 1;
+		g_sig.sigint = 1;
+	}
+	else if (signo == SIGQUIT)
+	{
+		printf("\b\b  \b\b");
+		g_sig.sigquit = 1;
 	}
 }
 
@@ -48,6 +53,7 @@ int	main(int argc, char **argv, char **envp)
 	sa.sa_flags = SA_SIGINFO;
 	sa.sa_sigaction = &handler;
 	sigaction(SIGINT, &sa, NULL);
+	sigaction(SIGQUIT, &sa, NULL);
 
 	shell = malloc(sizeof(t_shell));
 	init_shell(shell);
@@ -55,13 +61,15 @@ int	main(int argc, char **argv, char **envp)
 	while (!shell->exit_flag)
 	{
 		line = get_next_line(0);
-		if (!line && !gsigint)
+		if (!line && !g_sig.sigint && !g_sig.sigquit)
 		{
 			printf("exit\n");
 			free_shell(shell);
 			return (0);
 		}
-		gsigint = 0;
+		g_sig.sigint = 0;
+		g_sig.sigquit = 0;
+
 		add_history(line);
 		splited_line = ft_split(line, ' ');
 		if (splited_line[0])

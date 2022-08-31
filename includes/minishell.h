@@ -96,6 +96,12 @@ void	print_list(t_list *head);
 void	print_export_list(t_list *head);
 void	ptr_swap(char **p1, char **p2);
 
-extern int gsigint;
+typedef struct	s_sig
+{
+	int				sigint;
+	int				sigquit;
+}	t_sig;
+
+extern t_sig g_sig;
 
 #endif
