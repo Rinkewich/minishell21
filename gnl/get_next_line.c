@@ -105,7 +105,6 @@ char	*get_next_line(int fd)
 	static char	*prev;
 	char		*res;
 
-	write(1, "minishell : ", 12);
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
 	prev = read_to_endl(fd, prev);

@@ -28,13 +28,12 @@ static void	handler(int signo, siginfo_t *info, void *context)
 	(void)info;
 	if (signo == SIGINT)
 	{
-		printf("\b\b  ");
-		printf("\n");
+		write(1, "\b\b  \n", 5);
 		g_sig.sigint = 1;
 	}
 	else if (signo == SIGQUIT)
 	{
-		printf("\b\b  \b\b");
+		write(1, "\b\b  \b\b", 6);
 		g_sig.sigquit = 1;
 	}
 }
@@ -42,9 +41,11 @@ static void	handler(int signo, siginfo_t *info, void *context)
 int	main(int argc, char **argv, char **envp)
 {
 	char				*line;
+	// char				*tmp_line;
 	char				**splited_line;
 	t_shell				*shell;
 	struct sigaction	sa;
+	// struct termios		*termios_p;
 
 	(void)argc;
 	(void)argv;
@@ -54,22 +55,32 @@ int	main(int argc, char **argv, char **envp)
 	sa.sa_sigaction = &handler;
 	sigaction(SIGINT, &sa, NULL);
 	sigaction(SIGQUIT, &sa, NULL);
-
+	// tmp_line = NULL;
 	shell = malloc(sizeof(t_shell));
 	init_shell(shell);
 	init_env(shell, envp);
 	while (!shell->exit_flag)
 	{
+		if (!g_sig.sigquit)
+			write(1, "minishell : ", 12);
+		g_sig.sigint = 0;
+		g_sig.sigquit = 0;
 		line = get_next_line(0);
+		// if (g_sig.sigquit)
+		// {
+		// 	tmp_line = ft_strjoin(tmp_line, line);
+		// 	printf("%s\n", line);
+		// }
+		// else
+		// 	tmp_line = line;
+		// tcsetattr(stdin, TCSANOW, )
+		
 		if (!line && !g_sig.sigint && !g_sig.sigquit)
 		{
 			printf("exit\n");
 			free_shell(shell);
 			return (0);
 		}
-		g_sig.sigint = 0;
-		g_sig.sigquit = 0;
-
 		add_history(line);
 		splited_line = ft_split(line, ' ');
 		if (splited_line[0])
