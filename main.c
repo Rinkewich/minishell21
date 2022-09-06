@@ -28,34 +28,78 @@ static void	handler(int signo, siginfo_t *info, void *context)
 	(void)info;
 	if (signo == SIGINT)
 	{
-		write(1, "\b\b  \n", 5);
+		write(1, "\n", 1);
 		g_sig.sigint = 1;
 	}
 	else if (signo == SIGQUIT)
 	{
-		write(1, "\b\b  \b\b", 6);
+		// write(1, "\b\b  \b\b", 6);
 		g_sig.sigquit = 1;
 	}
+}
+
+void termios_setup(struct termios *term)
+{
+	term->c_iflag = 27394;
+	term->c_cflag = 19200;
+	term->c_lflag = ISIG |
+					ICANON |
+					ECHO |
+					ECHOE |
+					NOFLSH;
+					// ECHOK |
+					// ECHONL |
+					// TOSTOP |
+					// ECHOCTL |
+					// ECHOPRT |
+					// ECHOKE |
+					// FLUSHO |
+					// PENDIN |
+					// IEXTEN;
+	term->c_oflag = 3;
+	term->c_ispeed = 38400;
+	term->c_ospeed = 38400;
+	term->c_cc[VEOF] = 4;
+	term->c_cc[VEOL] = 255;
+	term->c_cc[VERASE] = 127;
+	term->c_cc[VINTR] = 3;
+	term->c_cc[VKILL] = 21;
+	term->c_cc[VMIN] = 1;
+	term->c_cc[VQUIT] = 28;
+	term->c_cc[VSTART] = 17;
+	term->c_cc[VSTOP] = 19;
+	term->c_cc[VSUSP] = 26;
+	term->c_cc[VTIME] = 0;
 }
 
 int	main(int argc, char **argv, char **envp)
 {
 	char				*line;
-	// char				*tmp_line;
 	char				**splited_line;
 	t_shell				*shell;
 	struct sigaction	sa;
-	// struct termios		*termios_p;
+	struct termios		term, original;
+
 
 	(void)argc;
 	(void)argv;
 	(void)envp;
+	
+	if (tcgetattr(fileno(stdin), &term) < 0) {
+		perror("Error getting terminal information");
+		return -1;
+	}
+	original = term;
+	termios_setup(&term);	
+	if (tcsetattr(fileno(stdin), TCSANOW, &term) < 0) {
+		perror("Error setting terminal information");
+		return -1;
+	}
 
 	sa.sa_flags = SA_SIGINFO;
 	sa.sa_sigaction = &handler;
 	sigaction(SIGINT, &sa, NULL);
 	sigaction(SIGQUIT, &sa, NULL);
-	// tmp_line = NULL;
 	shell = malloc(sizeof(t_shell));
 	init_shell(shell);
 	init_env(shell, envp);
@@ -66,15 +110,6 @@ int	main(int argc, char **argv, char **envp)
 		g_sig.sigint = 0;
 		g_sig.sigquit = 0;
 		line = get_next_line(0);
-		// if (g_sig.sigquit)
-		// {
-		// 	tmp_line = ft_strjoin(tmp_line, line);
-		// 	printf("%s\n", line);
-		// }
-		// else
-		// 	tmp_line = line;
-		// tcsetattr(stdin, TCSANOW, )
-		
 		if (!line && !g_sig.sigint && !g_sig.sigquit)
 		{
 			printf("exit\n");
@@ -90,23 +125,12 @@ int	main(int argc, char **argv, char **envp)
 			else
 				exec_builtin(splited_line, shell);
 		}
-		// ft_env(shell);
-		// ft_export(shell, "aaa=1");
-		// ft_export(shell, "aaaaaa=2");
-		// ft_unset(shell, "aaa");
-		// ft_export(shell, "a=3");
-		// ft_export(shell, "");
-		// printf("\n");
-		// ft_env(shell);
-		// printf("\n");
-		// ft_echo("hello world!", 0);
-		// ft_export(shell, "b=2");
-		// ft_export(shell, "c=3");
-		// ft_env(shell);
-		// ft_export(shell, "");
-		// ft_unset(shell, "asd");
-		// parse_line(line, shell);
-		free(line);
+		if (line)
+			free(line);
+	}
+	if (tcsetattr(fileno(stdin), TCSANOW, &original) < 0) {
+		perror("Error setting terminal information");
+		return -1;
 	}
 	return (0);
 }
