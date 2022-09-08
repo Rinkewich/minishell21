@@ -10,6 +10,47 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+	// printf("0: %d\n", term.c_cc[0]);
+	// printf("1: %d\n", term.c_cc[1]);
+	// printf("2: %d\n", term.c_cc[2]);
+	// printf("3: %d\n", term.c_cc[3]);
+	// printf("4: %d\n", term.c_cc[4]);
+	// printf("5: %d\n", term.c_cc[5]);
+	// printf("6: %d\n", term.c_cc[6]);
+	// printf("7: %d\n", term.c_cc[7]);
+	// printf("8: %d\n", term.c_cc[9]);
+	// printf("9: %d\n", term.c_cc[8]);
+	// printf("10: %d\n", term.c_cc[10]);
+	// printf("11: %d\n", term.c_cc[11]);
+	// printf("12: %d\n", term.c_cc[12]);
+	// printf("13: %d\n", term.c_cc[13]);
+	// printf("14: %d\n", term.c_cc[14]);
+	// printf("15: %d\n", term.c_cc[15]);
+	// printf("16: %d\n", term.c_cc[16]);
+	// printf("17: %d\n", term.c_cc[17]);
+	// printf("18: %d\n", term.c_cc[18]);
+	// printf("19: %d\n", term.c_cc[19]);
+	// printf("20: %d\n", term.c_cc[20]);
+
+	
+	// 	  ECHOKE      /* visual erase for line kill */
+	//    ECHOE       /* visually erase chars */
+	//    ECHO        /* enable echoing */
+	//    ECHONL      /* echo NL even if ECHO is off */
+	//    ECHOPRT     /* visual erase mode for hardcopy */
+	//    ECHOCTL     /* echo control chars as ^(Char) */
+	//    ISIG        /* enable signals INTR, QUIT, [D]SUSP */
+	//    ICANON      /* canonicalize input lines */
+	//    ALTWERASE   /* use alternate WERASE algorithm */
+	//    IEXTEN      /* enable DISCARD and LNEXT */
+	//    EXTPROC     /* external processing */
+	//    TOSTOP      /* stop background jobs from output */
+	//    FLUSHO      /* output being flushed (state) */
+	//    NOKERNINFO  /* no kernel output from VSTATUS */
+	//    PENDIN      /* XXX retype pending input (state) */
+	//    NOFLSH      /* don't flush after interrupt */
+	
+
 #include "minishell.h"
 #include "get_next_line.h"
 
@@ -38,7 +79,7 @@ static void	handler(int signo, siginfo_t *info, void *context)
 	}
 }
 
-void termios_setup(struct termios *term)
+void termios_setup1(struct termios *term)
 {
 	term->c_iflag = 27394;
 	term->c_cflag = 19200;
@@ -72,6 +113,80 @@ void termios_setup(struct termios *term)
 	term->c_cc[VTIME] = 0;
 }
 
+void termios_setup(struct termios *term)
+{
+	term->c_iflag = 
+					BRKINT |
+					ICRNL |
+					IXON |
+					IXANY |
+					IMAXBEL |
+					IUTF8;
+					// IGNBRK |
+					// IGNPAR |
+					// PARMRK |
+					// INPCK |
+					// ISTRIP |
+					// INLCR |
+					// IGNCR |
+					// IXOFF;
+	// 27394
+	// 28671
+	term->c_cflag = CSIZE |
+					CREAD |
+					HUPCL;
+					// CSTOPB |
+					// PARENB |
+					// PARODD;
+					// CLOCAL;
+	// 19200
+	// 65280
+	// printf("%ld\n%ld\n", term->c_iflag, term->c_cflag);
+	term->c_lflag = ISIG |
+					ICANON |
+					ECHO |
+					ECHOE |
+					// ECHOK |
+					ECHOCTL |
+					// ECHOKE |
+
+					// PENDIN |
+					// IEXTEN |
+					// ALTWERASE |
+					// NOKERNINFO |
+					// EXTPROC |
+					// ECHONL|
+					// TOSTOP |
+					// FLUSHO |
+					// ECHOPRT |
+					NOFLSH;
+	term->c_oflag = OPOST | ONLCR;
+	// term->c_ispeed = 38400;
+	// term->c_ospeed = 38400;
+
+	term->c_cc[VEOF] = 4;
+	term->c_cc[VEOL] = 255;
+	term->c_cc[VEOL2] = 255;
+	term->c_cc[VERASE] = 127;
+	term->c_cc[4] = 23;
+	term->c_cc[VKILL] = 21;
+	term->c_cc[6] = 18;
+	term->c_cc[7] = 0;
+	term->c_cc[VINTR] = 3;
+	term->c_cc[VQUIT] = 28;
+	term->c_cc[VSUSP] = 26;
+	term->c_cc[11] = 25;
+	term->c_cc[VSTART] = 17;
+	term->c_cc[VSTOP] = 19;
+	term->c_cc[14] = 22;
+	term->c_cc[15] = 15;
+	term->c_cc[VMIN] = 1;
+	term->c_cc[VTIME] = 0;
+	term->c_cc[18] = 20;
+	term->c_cc[19] = 0;
+	term->c_cc[20] = 0;
+}
+
 int	main(int argc, char **argv, char **envp)
 {
 	char				*line;
@@ -79,7 +194,6 @@ int	main(int argc, char **argv, char **envp)
 	t_shell				*shell;
 	struct sigaction	sa;
 	struct termios		term, original;
-
 
 	(void)argc;
 	(void)argv;
@@ -95,7 +209,6 @@ int	main(int argc, char **argv, char **envp)
 		perror("Error setting terminal information");
 		return -1;
 	}
-
 	sa.sa_flags = SA_SIGINFO;
 	sa.sa_sigaction = &handler;
 	sigaction(SIGINT, &sa, NULL);
@@ -114,6 +227,10 @@ int	main(int argc, char **argv, char **envp)
 		{
 			printf("exit\n");
 			free_shell(shell);
+			if (tcsetattr(fileno(stdin), TCSANOW, &original) < 0) {
+				perror("Error setting terminal information");
+				return -1;
+			}
 			return (0);
 		}
 		add_history(line);
