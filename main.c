@@ -69,48 +69,14 @@ static void	handler(int signo, siginfo_t *info, void *context)
 	(void)info;
 	if (signo == SIGINT)
 	{
-		write(1, "\n", 1);
+		write(1, "\b\b  \n", 5);
 		g_sig.sigint = 1;
 	}
 	else if (signo == SIGQUIT)
 	{
-		// write(1, "\b\b  \b\b", 6);
+		write(1, "\b\b  \b\b", 6);
 		g_sig.sigquit = 1;
 	}
-}
-
-void termios_setup1(struct termios *term)
-{
-	term->c_iflag = 27394;
-	term->c_cflag = 19200;
-	term->c_lflag = ISIG |
-					ICANON |
-					ECHO |
-					ECHOE |
-					NOFLSH;
-					// ECHOK |
-					// ECHONL |
-					// TOSTOP |
-					// ECHOCTL |
-					// ECHOPRT |
-					// ECHOKE |
-					// FLUSHO |
-					// PENDIN |
-					// IEXTEN;
-	term->c_oflag = 3;
-	term->c_ispeed = 38400;
-	term->c_ospeed = 38400;
-	term->c_cc[VEOF] = 4;
-	term->c_cc[VEOL] = 255;
-	term->c_cc[VERASE] = 127;
-	term->c_cc[VINTR] = 3;
-	term->c_cc[VKILL] = 21;
-	term->c_cc[VMIN] = 1;
-	term->c_cc[VQUIT] = 28;
-	term->c_cc[VSTART] = 17;
-	term->c_cc[VSTOP] = 19;
-	term->c_cc[VSUSP] = 26;
-	term->c_cc[VTIME] = 0;
 }
 
 void termios_setup(struct termios *term)
@@ -146,10 +112,10 @@ void termios_setup(struct termios *term)
 					ICANON |
 					ECHO |
 					ECHOE |
-					// ECHOK |
 					ECHOCTL |
-					// ECHOKE |
-
+					
+					ECHOK |
+					ECHOKE |
 					// PENDIN |
 					// IEXTEN |
 					// ALTWERASE |
@@ -204,11 +170,11 @@ int	main(int argc, char **argv, char **envp)
 		return -1;
 	}
 	original = term;
-	termios_setup(&term);	
-	if (tcsetattr(fileno(stdin), TCSANOW, &term) < 0) {
-		perror("Error setting terminal information");
-		return -1;
-	}
+	// termios_setup(&term);	
+	// if (tcsetattr(fileno(stdin), TCSANOW, &term) < 0) {
+	// 	perror("Error setting terminal information");
+	// 	return -1;
+	// }
 	sa.sa_flags = SA_SIGINFO;
 	sa.sa_sigaction = &handler;
 	sigaction(SIGINT, &sa, NULL);
