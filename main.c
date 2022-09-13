@@ -28,12 +28,12 @@ static void	handler(int signo, siginfo_t *info, void *context)
 	(void)info;
 	if (signo == SIGINT)
 	{
-		write(1, "\n", 1);
+		write(1, "\b\b  \n", 5);
 		g_sig.sigint = 1;
 	}
 	else if (signo == SIGQUIT)
 	{
-		// write(1, "\b\b  \b\b", 6);
+		write(1, "\b\b  \b\b", 6);
 		g_sig.sigquit = 1;
 	}
 }
@@ -91,10 +91,10 @@ int	main(int argc, char **argv, char **envp)
 	}
 	original = term;
 	termios_setup(&term);	
-	if (tcsetattr(fileno(stdin), TCSANOW, &term) < 0) {
-		perror("Error setting terminal information");
-		return -1;
-	}
+	// if (tcsetattr(fileno(stdin), TCSANOW, &term) < 0) {
+	// 	perror("Error setting terminal information");
+	// 	return -1;
+	// }
 
 	sa.sa_flags = SA_SIGINFO;
 	sa.sa_sigaction = &handler;

@@ -35,6 +35,19 @@
 
 # include "libft.h"
 
+# define PROMT "minishell : "
+# define MAX_PATH 1024
+
+// Tokens types
+#define EMPTY 0
+#define CMD 1
+#define ARG 2
+#define REDIR_INPUT 3	// <
+#define REDIR_OUTPUT 4	// >
+#define REDIR_APPEND 5	// >>
+#define HEREDOC 6		// <<
+#define PIPE 9			// |
+
 typedef struct s_list
 {
 	char			*key;
@@ -43,14 +56,20 @@ typedef struct s_list
 	struct s_list	*next;
 }	t_list;
 
+typedef struct s_token
+{
+	char	*val;
+	int		type;
+	struct s_token *prev;
+	struct s_token *next;
+}	t_token;
+
 typedef struct s_shell
 {
 	t_list	*env_list;
 	int		exit_flag;
 }	t_shell;
 
-# define PROMT "minishell : "
-# define MAX_PATH 1024
 
 void	init_shell(t_shell *shell);
 void	free_shell(t_shell *shell);
