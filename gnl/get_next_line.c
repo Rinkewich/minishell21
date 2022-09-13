@@ -40,7 +40,11 @@ char	*read_to_endl(int fd, char *str)
 			return (NULL);
 		buf[rd] = '\0';
 		if (rd == 0 || buf[rd - 1] != '\n')
+		{
 			write(1, "  \b\b", 4);
+			// write(1, buf, ft_strlen(buf));
+			// write(1, "\n", 1);
+		}
 		str = ft_strjoin(str, buf);
 	}
 	return (str);

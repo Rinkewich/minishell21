@@ -46,13 +46,15 @@ int	exec_cmd(char **argv, char **envp, t_shell *shell)
 {
 	char	*cmd_path;
 	char	*path_env;
-	char	 *cmd;
+	char	*cmd;
+	t_list	*tmp_list;
 	pid_t	pid;
 
 	cmd = argv[0];
-	path_env = get_list(shell->env_list, "PATH")->val;
-	if (!path_env)
+	tmp_list = get_list(shell->env_list, "PATH");
+	if (!tmp_list)
 		return (1);
+	path_env = tmp_list->val;
 	cmd_path = find_cmd_path(cmd, path_env);
 	if (!cmd_path)
 		return (1);
