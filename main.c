@@ -6,7 +6,7 @@
 /*   By: rdeanne <rdeanne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 11:13:40 by rdeanne           #+#    #+#             */
-/*   Updated: 2022/06/17 12:31:35 by rdeanne          ###   ########.fr       */
+/*   Updated: 2022/09/15 14:07:55 by rdeanne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -170,11 +170,13 @@ int	main(int argc, char **argv, char **envp)
 		return -1;
 	}
 	original = term;
-	termios_setup(&term);	
-	// if (tcsetattr(fileno(stdin), TCSANOW, &term) < 0) {
-	// 	perror("Error setting terminal information");
-	// 	return -1;
-	// }
+	term.c_lflag |= NOFLSH;
+	term.c_lflag &= ~NOFLSH;
+	// termios_setup(&term);
+	if (tcsetattr(fileno(stdin), TCSANOW, &term) < 0) {
+		perror("Error setting terminal information");
+		return -1;
+	}
 	sa.sa_flags = SA_SIGINFO;
 	sa.sa_sigaction = &handler;
 	sigaction(SIGINT, &sa, NULL);
@@ -193,9 +195,10 @@ int	main(int argc, char **argv, char **envp)
 		{
 			printf("exit\n");
 			free_shell(shell);
-			if (tcsetattr(fileno(stdin), TCSANOW, &original) < 0) {
+			if (tcsetattr(fileno(stdin), TCSANOW, &original) < 0)
+			{
 				perror("Error setting terminal information");
-				return -1;
+				return (-1);
 			}
 			return (0);
 		}
@@ -211,9 +214,10 @@ int	main(int argc, char **argv, char **envp)
 		if (line)
 			free(line);
 	}
-	if (tcsetattr(fileno(stdin), TCSANOW, &original) < 0) {
+	if (tcsetattr(fileno(stdin), TCSANOW, &original) < 0)
+	{
 		perror("Error setting terminal information");
-		return -1;
+		return (-1);
 	}
 	return (0);
 }
