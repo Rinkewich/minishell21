@@ -6,13 +6,13 @@
 /*   By: rdeanne <rdeanne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 15:39:23 by rdeanne           #+#    #+#             */
-/*   Updated: 2022/05/31 17:05:58 by rdeanne          ###   ########.fr       */
+/*   Updated: 2022/09/15 13:37:51 by rdeanne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	parse_line(char *line, t_shell *shell)
+t_token	*parse_line(char *line, t_shell *shell)
 {
-
+	
 }

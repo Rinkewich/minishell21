@@ -74,7 +74,10 @@ typedef struct s_shell
 void	init_shell(t_shell *shell);
 void	free_shell(t_shell *shell);
 
-// parser
+// tokens list
+t_token	*create_token(char *val, int type);
+t_token	*push_token(t_token *head, char *val, int type);
+void	delete_tokens(t_token **head);
 
 // list operations:
 t_list	*create_list(char *key, char *val);
