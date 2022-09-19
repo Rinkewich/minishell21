@@ -6,7 +6,7 @@
 /*   By: rdeanne <rdeanne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/21 15:57:47 by rdeanne           #+#    #+#             */
-/*   Updated: 2022/06/14 12:12:13 by rdeanne          ###   ########.fr       */
+/*   Updated: 2022/09/19 15:24:47 by rdeanne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,13 +117,5 @@ void	init_env(t_shell *shell, char **envp);
 void	print_list(t_list *head);
 void	print_export_list(t_list *head);
 void	ptr_swap(char **p1, char **p2);
-
-typedef struct	s_sig
-{
-	int				sigint;
-	int				sigquit;
-}	t_sig;
-
-extern t_sig g_sig;
 
 #endif

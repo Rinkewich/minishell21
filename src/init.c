@@ -6,7 +6,7 @@
 /*   By: rdeanne <rdeanne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 14:21:03 by rdeanne           #+#    #+#             */
-/*   Updated: 2022/06/08 16:53:05 by rdeanne          ###   ########.fr       */
+/*   Updated: 2022/09/19 15:24:57 by rdeanne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,6 @@ void	init_shell(t_shell *shell)
 {
 	shell->exit_flag = 0;
 	shell->env_list = NULL;
-	g_sig.sigint = 0;
-	g_sig.sigquit = 0;
 }
 
 void	init_env(t_shell *shell, char **envp)

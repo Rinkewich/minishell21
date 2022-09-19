@@ -6,7 +6,7 @@
 /*   By: rdeanne <rdeanne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/24 13:53:07 by rdeanne           #+#    #+#             */
-/*   Updated: 2022/06/17 12:48:15 by rdeanne          ###   ########.fr       */
+/*   Updated: 2022/09/19 14:44:07 by rdeanne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,12 +39,12 @@ char	*read_to_endl(int fd, char *str)
 		if (rd == -1)
 			return (NULL);
 		buf[rd] = '\0';
-		if (rd == 0 || buf[rd - 1] != '\n')
-		{
-			write(1, "  \b\b", 4);
-			// write(1, buf, ft_strlen(buf));
-			// write(1, "\n", 1);
-		}
+		// if (rd == 0 || buf[rd - 1] != '\n')
+		// {
+		// 	write(1, "  \b\b", 4);
+		// 	// write(1, buf, ft_strlen(buf));
+		// 	// write(1, "\n", 1);
+		// }
 		str = ft_strjoin(str, buf);
 	}
 	return (str);
