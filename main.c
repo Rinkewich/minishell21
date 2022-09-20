@@ -6,7 +6,7 @@
 /*   By: rdeanne <rdeanne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 11:13:40 by rdeanne           #+#    #+#             */
-/*   Updated: 2022/09/20 15:23:34 by rdeanne          ###   ########.fr       */
+/*   Updated: 2022/09/20 15:39:41 by rdeanne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -181,7 +181,7 @@ int	main(int argc, char **argv, char **envp)
 		line = readline(PROMT);
 		if (!line)
 		{
-			write(1, "           \x1B[Aexit\n", 20);
+			printf("\x1B[u\x1B[Aexit\n");
 			free_shell(shell);
 			rl_clear_history();
 			if (tcsetattr(fileno(stdin), TCSANOW, &original) < 0)

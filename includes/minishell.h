@@ -6,7 +6,7 @@
 /*   By: rdeanne <rdeanne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/21 15:57:47 by rdeanne           #+#    #+#             */
-/*   Updated: 2022/09/20 15:22:40 by rdeanne          ###   ########.fr       */
+/*   Updated: 2022/09/20 15:40:14 by rdeanne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@
 
 # include "libft.h"
 
-# define PROMT "minishell: "
+# define PROMT "minishell: \x1B[s"
 # define MAX_PATH 1024
 
 // Tokens types
