@@ -6,7 +6,7 @@
 /*   By: rdeanne <rdeanne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/21 15:57:47 by rdeanne           #+#    #+#             */
-/*   Updated: 2022/09/19 15:24:47 by rdeanne          ###   ########.fr       */
+/*   Updated: 2022/09/20 15:22:40 by rdeanne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,18 +35,18 @@
 
 # include "libft.h"
 
-# define PROMT "minishell : "
+# define PROMT "minishell: "
 # define MAX_PATH 1024
 
 // Tokens types
-#define EMPTY 0
-#define CMD 1
-#define ARG 2
-#define REDIR_INPUT 3	// <
-#define REDIR_OUTPUT 4	// >
-#define REDIR_APPEND 5	// >>
-#define HEREDOC 6		// <<
-#define PIPE 9			// |
+# define EMPTY 0
+# define CMD 1
+# define ARG 2
+# define REDIR_INPUT 3	// <
+# define REDIR_OUTPUT 4	// >
+# define REDIR_APPEND 5	// >>
+# define HEREDOC 6		// <<
+# define PIPE 9			// |
 
 typedef struct s_list
 {
@@ -58,10 +58,10 @@ typedef struct s_list
 
 typedef struct s_token
 {
-	char	*val;
-	int		type;
-	struct s_token *prev;
-	struct s_token *next;
+	char			*val;
+	int				type;
+	struct s_token	*prev;
+	struct s_token	*next;
 }	t_token;
 
 typedef struct s_shell
@@ -73,6 +73,8 @@ typedef struct s_shell
 
 void	init_shell(t_shell *shell);
 void	free_shell(t_shell *shell);
+
+// redirection
 
 // tokens list
 t_token	*create_token(char *val, int type);

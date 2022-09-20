@@ -9,6 +9,8 @@ OBJDIR	=	obj
 SRCDIR	=	src
 BUILTINS	=	src/builtins
 GNL		=	gnl
+ENV		=	src/env
+
 HEADERS	=	includes/minishell.h includes/libft.h includes/get_next_line.h
 
 LIBFTPATH	=	libft
@@ -41,6 +43,9 @@ $(OBJDIR)/%.o	:	$(BUILTINS)/%.c $(HEADERS)
 	$(CC) $(CFLAGS) $(INCLUDE) -c $< -o $@
 
 $(OBJDIR)/%.o	:	$(GNL)/%.c $(HEADERS)
+	$(CC) $(CFLAGS) $(INCLUDE) -c $< -o $@
+	
+$(OBJDIR)/%.o	:	$(ENV)/%.c $(HEADERS)
 	$(CC) $(CFLAGS) $(INCLUDE) -c $< -o $@
 
 clean	:
