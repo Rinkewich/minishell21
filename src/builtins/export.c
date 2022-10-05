@@ -6,7 +6,7 @@
 /*   By: rdeanne <rdeanne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/04 13:45:49 by rdeanne           #+#    #+#             */
-/*   Updated: 2022/06/08 16:52:36 by rdeanne          ###   ########.fr       */
+/*   Updated: 2022/10/05 13:01:31 by rdeanne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	ft_export(t_shell *shell, char	*str)
 	}
 	if (!check_env(str))
 	{
-		ft_putendl_fd("export: not an identifier: 34", 2);
+		ft_putendl_fd("export: not an identifier: 34", STDERR);
 		return (1);
 	}
 	env_str = parse_env_str(str);

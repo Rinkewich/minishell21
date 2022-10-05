@@ -6,7 +6,7 @@
 /*   By: rdeanne <rdeanne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/21 15:57:47 by rdeanne           #+#    #+#             */
-/*   Updated: 2022/09/20 15:40:14 by rdeanne          ###   ########.fr       */
+/*   Updated: 2022/10/05 14:08:27 by rdeanne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,10 @@
 # define HEREDOC 6		// <<
 # define PIPE 9			// |
 
+# define STDIN 0
+# define STDOUT 1
+# define STDERR 2
+
 typedef struct s_list
 {
 	char			*key;
@@ -66,8 +70,11 @@ typedef struct s_token
 
 typedef struct s_shell
 {
+	int		fdin;
+	int		fdout;
 	t_list	*env_list;
 	int		exit_flag;
+	int		exit_status;
 }	t_shell;
 
 
@@ -75,6 +82,7 @@ void	init_shell(t_shell *shell);
 void	free_shell(t_shell *shell);
 
 // redirection
+
 
 // tokens list
 t_token	*create_token(char *val, int type);
@@ -110,7 +118,6 @@ int		ft_env(t_shell *shell);
 int		exec_cmd(char **argv, char **envp, t_shell *shell);
 int		exec_builtin(char **argv, t_shell *shell);
 
-
 // env
 char	**parse_env_str(char *str);
 void	init_env(t_shell *shell, char **envp);
@@ -119,5 +126,7 @@ void	init_env(t_shell *shell, char **envp);
 void	print_list(t_list *head);
 void	print_export_list(t_list *head);
 void	ptr_swap(char **p1, char **p2);
+
+extern int	g_sigint;
 
 #endif
