@@ -6,7 +6,7 @@
 /*   By: rdeanne <rdeanne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 15:01:59 by rdeanne           #+#    #+#             */
-/*   Updated: 2022/09/15 13:20:52 by rdeanne          ###   ########.fr       */
+/*   Updated: 2022/10/07 12:40:37 by rdeanne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ t_list	*update_list(t_list *head, char *key, char *val)
 		}
 		head = head->next;
 	}
-	return (rotate_list(push_list(begin, key, val)));
+	return (swap_down(rotate_list(push_list(begin, key, val))));
 }
 
 t_list	*pop_list(t_list *head)

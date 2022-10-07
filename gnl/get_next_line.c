@@ -6,11 +6,12 @@
 /*   By: rdeanne <rdeanne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/24 13:53:07 by rdeanne           #+#    #+#             */
-/*   Updated: 2022/09/19 14:44:07 by rdeanne          ###   ########.fr       */
+/*   Updated: 2022/10/07 12:44:51 by rdeanne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+#include "libft.h"
 #include <stdlib.h>
 #include <unistd.h>
 

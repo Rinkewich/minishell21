@@ -6,7 +6,7 @@
 /*   By: rdeanne <rdeanne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 14:21:03 by rdeanne           #+#    #+#             */
-/*   Updated: 2022/10/05 14:08:15 by rdeanne          ###   ########.fr       */
+/*   Updated: 2022/10/07 12:41:14 by rdeanne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,4 +33,5 @@ void	init_env(t_shell *shell, char **envp)
 		free(env_str);
 		i++;
 	}
+	shell->env_list = delete_env(shell->env_list, "OLDPWD");
 }

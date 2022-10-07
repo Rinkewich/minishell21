@@ -6,7 +6,7 @@
 /*   By: rdeanne <rdeanne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/21 15:57:47 by rdeanne           #+#    #+#             */
-/*   Updated: 2022/10/05 14:08:27 by rdeanne          ###   ########.fr       */
+/*   Updated: 2022/10/07 12:46:19 by rdeanne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ t_list	*copy_list(t_list *src);
 t_list	*get_list(t_list *head, char *key);
 
 // builtins
-int		ft_cd(const char *path);
+int		ft_cd(const char *path, t_list *envp);
 int		ft_echo(char **argv);
 int		ft_pwd(void);
 int		ft_exit(t_shell *shell);

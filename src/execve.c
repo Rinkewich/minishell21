@@ -6,7 +6,7 @@
 /*   By: rdeanne <rdeanne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 11:49:13 by rdeanne           #+#    #+#             */
-/*   Updated: 2022/06/14 13:23:34 by rdeanne          ###   ########.fr       */
+/*   Updated: 2022/10/07 12:46:46 by rdeanne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ int	exec_builtin(char **argv, t_shell *shell)
 
 	cmd = argv[0];
 	if (!ft_strcmp(cmd, "cd"))
-		return (ft_cd(argv[1]));
+		return (ft_cd(argv[1], shell->env_list));
 	if (!ft_strcmp(cmd, "echo"))
 		return (ft_echo(argv));
 	if (!ft_strcmp(cmd, "env"))
