@@ -6,7 +6,7 @@
 /*   By: rdeanne <rdeanne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/03 10:51:24 by rdeanne           #+#    #+#             */
-/*   Updated: 2022/10/07 12:53:41 by rdeanne          ###   ########.fr       */
+/*   Updated: 2022/10/07 14:04:04 by rdeanne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,10 @@ int	ft_cd(const char *path, t_list *envp)
 	char	dir[MAX_PATH];
 	char	*pwd;
 	char	*key;
+	char	*tmp_pwd;
 
 	if (!path)
-	{
-		ft_cd(get_list(envp, "HOME"), envp);
-		return (1);
-	}
+		return (ft_cd(get_list(envp, "HOME")->val, envp));
 	if (!getcwd(dir, MAX_PATH))
 		return (3);
 	pwd = ft_strndup(dir, ft_strlen(dir));
@@ -42,7 +40,14 @@ int	ft_cd(const char *path, t_list *envp)
 	}
 	else if (!ft_strcmp(path, "-"))
 	{
-		
+		if (!get_list(envp, "OLDPWD"))
+		{
+			ft_putstr_fd("minishell: cd: OLDPWD not set\n", STDERR);
+			return (4);
+		}
+		tmp_pwd = get_list(envp, "OLDPWD")->val;
+		printf("%s\n", tmp_pwd);
+		return (ft_cd(tmp_pwd, envp));
 	}
 	key = ft_strndup("OLDPWD", 6);
 	envp = update_list(envp, key, pwd);
