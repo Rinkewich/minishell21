@@ -6,12 +6,11 @@
 /*   By: rdeanne <rdeanne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 11:45:27 by rdeanne           #+#    #+#             */
-/*   Updated: 2022/10/19 16:01:00 by rdeanne          ###   ########.fr       */
+/*   Updated: 2022/10/19 16:09:19 by rdeanne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
 
 t_list	*sort_list(t_list *head)
 {

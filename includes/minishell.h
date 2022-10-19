@@ -6,7 +6,7 @@
 /*   By: rdeanne <rdeanne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/21 15:57:47 by rdeanne           #+#    #+#             */
-/*   Updated: 2022/10/07 12:46:19 by rdeanne          ###   ########.fr       */
+/*   Updated: 2022/10/19 16:08:58 by rdeanne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,6 @@ t_list	*rotate_list(t_list *head);
 t_list	*reverse_rotate_list(t_list *head);
 t_list	*swap_top(t_list *head);
 t_list	*swap_down(t_list *head);
-int		list_size(t_list *a);
 t_list	*sort_list(t_list *list);
 void	delete_list(t_list **head);
 t_list	*copy_list(t_list *src);
