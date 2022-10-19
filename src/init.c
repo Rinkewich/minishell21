@@ -6,7 +6,7 @@
 /*   By: rdeanne <rdeanne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 14:21:03 by rdeanne           #+#    #+#             */
-/*   Updated: 2022/10/07 12:41:14 by rdeanne          ###   ########.fr       */
+/*   Updated: 2022/10/19 16:19:22 by rdeanne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,8 @@ void	init_env(t_shell *shell, char **envp)
 	while (envp[i])
 	{
 		env_str = parse_env_str(envp[i]);
-		shell->env_list = rotate_list(push_list(shell->env_list, env_str[0], env_str[1]));
+		shell->env_list = rotate_list(push_list(\
+			shell->env_list, env_str[0], env_str[1]));
 		free(env_str);
 		i++;
 	}

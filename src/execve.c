@@ -6,7 +6,7 @@
 /*   By: rdeanne <rdeanne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 11:49:13 by rdeanne           #+#    #+#             */
-/*   Updated: 2022/10/19 16:03:47 by rdeanne          ###   ########.fr       */
+/*   Updated: 2022/10/19 16:20:51 by rdeanne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ int	exec_cmd(char **argv, char **envp, t_shell *shell)
 
 int	exec_builtin(char **argv, t_shell *shell)
 {
-	char	 *cmd;
+	char	*cmd;
 
 	cmd = argv[0];
 	if (!ft_strcmp(cmd, "cd"))
