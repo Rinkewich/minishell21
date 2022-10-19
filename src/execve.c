@@ -6,20 +6,18 @@
 /*   By: rdeanne <rdeanne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 11:49:13 by rdeanne           #+#    #+#             */
-/*   Updated: 2022/10/07 12:46:46 by rdeanne          ###   ########.fr       */
+/*   Updated: 2022/10/19 16:03:47 by rdeanne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static char	*find_cmd_path(char *cmd, char *path_env)
+static char	*find_cmd_path(char *cmd, char **bin)
 {
-	char			**bin;
 	int				i;
 	DIR				*folder;
 	struct dirent	*file;
 
-	bin = ft_split(path_env, ':');
 	i = 0;
 	while (bin[i])
 	{
@@ -55,7 +53,7 @@ int	exec_cmd(char **argv, char **envp, t_shell *shell)
 	if (!tmp_list)
 		return (1);
 	path_env = tmp_list->val;
-	cmd_path = find_cmd_path(cmd, path_env);
+	cmd_path = find_cmd_path(cmd, ft_split(path_env, ':'));
 	if (!cmd_path)
 		return (1);
 	pid = fork();
