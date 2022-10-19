@@ -6,20 +6,28 @@
 /*   By: rdeanne <rdeanne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/03 10:51:24 by rdeanne           #+#    #+#             */
-/*   Updated: 2022/10/07 14:04:04 by rdeanne          ###   ########.fr       */
+/*   Updated: 2022/10/19 15:46:16 by rdeanne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-//  Надо сделать "cd -" "cd"
+void	print_cd_error(const char *path)
+{
+	char	*error;
+
+	error = ft_strtolower(strerror(errno));
+	ft_putstr_fd("cd: ", STDERR);
+	ft_putstr_fd(error, STDERR);
+	ft_putstr_fd(": ", STDERR);
+	ft_putendl_fd(path, STDERR);
+	free(error);
+}
 
 int	ft_cd(const char *path, t_list *envp)
 {
-	char	*error;
 	char	dir[MAX_PATH];
 	char	*pwd;
-	char	*key;
 	char	*tmp_pwd;
 
 	if (!path)
@@ -29,12 +37,7 @@ int	ft_cd(const char *path, t_list *envp)
 	pwd = ft_strndup(dir, ft_strlen(dir));
 	if (chdir(path) == -1 && ft_strcmp(path, "-"))
 	{
-		error = ft_strtolower(strerror(errno));
-		ft_putstr_fd("cd: ", STDERR);
-		ft_putstr_fd(error, STDERR);
-		ft_putstr_fd(": ", STDERR);
-		ft_putendl_fd(path, STDERR);
-		free(error);
+		print_cd_error(path);
 		free(pwd);
 		return (2);
 	}
@@ -49,12 +52,10 @@ int	ft_cd(const char *path, t_list *envp)
 		printf("%s\n", tmp_pwd);
 		return (ft_cd(tmp_pwd, envp));
 	}
-	key = ft_strndup("OLDPWD", 6);
-	envp = update_list(envp, key, pwd);
+	envp = update_list(envp, ft_strndup("OLDPWD", 6), pwd);
 	if (!getcwd(dir, MAX_PATH))
 		return (3);
 	pwd = ft_strndup(dir, ft_strlen(dir));
-	key = ft_strndup("PWD", 3);
-	envp = update_list(envp, key, pwd);
+	envp = update_list(envp, ft_strndup("PWD", 3), pwd);
 	return (0);
 }

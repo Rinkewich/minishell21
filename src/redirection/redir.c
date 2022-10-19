@@ -6,7 +6,7 @@
 /*   By: rdeanne <rdeanne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/15 14:28:36 by rdeanne           #+#    #+#             */
-/*   Updated: 2022/10/05 14:11:57 by rdeanne          ###   ########.fr       */
+/*   Updated: 2022/10/11 10:00:21 by rdeanne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	redir_output(t_shell *shell, t_token *token, int type)
 		ft_putstr_fd(token->val, STDERR);
 		ft_putendl_fd(": No such file or directory", STDERR);
 		shell->exit_status = 1;
-		return;
+		return ;
 	}
 	dup2(shell->fdout, STDOUT);
 }
@@ -40,7 +40,7 @@ void	redir_input(t_shell *shell, t_token *token)
 		ft_putstr_fd(token->val, STDERR);
 		ft_putendl_fd(": No such file or directory", STDERR);
 		shell->exit_status = 1;
-		return;
+		return ;
 	}
 	dup2(shell->fdin, STDIN);
 }

@@ -6,7 +6,7 @@
 /*   By: rdeanne <rdeanne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 11:13:40 by rdeanne           #+#    #+#             */
-/*   Updated: 2022/10/05 14:35:20 by rdeanne          ###   ########.fr       */
+/*   Updated: 2022/10/19 15:31:57 by rdeanne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,10 @@ int		g_sigint;
 
 int	in_builtins(char *cmd)
 {
-	return (!ft_strcmp(cmd, "cd") || !ft_strcmp(cmd, "echo") || !ft_strcmp(cmd, "env") ||
-			!ft_strcmp(cmd, "exit") || !ft_strcmp(cmd, "export") || !ft_strcmp(cmd, "pwd") ||
-			!ft_strcmp(cmd, "unset"));
+	return (!ft_strcmp(cmd, "cd") || !ft_strcmp(cmd, "echo")
+		|| !ft_strcmp(cmd, "env") || !ft_strcmp(cmd, "exit")
+		|| !ft_strcmp(cmd, "export") || !ft_strcmp(cmd, "pwd")
+		|| !ft_strcmp(cmd, "unset"));
 }
 
 static void	handler(int signo, siginfo_t *info, void *context)
@@ -36,11 +37,11 @@ static void	handler(int signo, siginfo_t *info, void *context)
 
 void termios_setup(struct termios *term)
 {
-	term->c_iflag = BRKINT | ICRNL | IXON |
-					IXANY | IMAXBEL | IUTF8;
+	term->c_iflag = BRKINT | ICRNL | IXON
+		| IXANY | IMAXBEL | IUTF8;
 	term->c_cflag = CSIZE | CREAD | HUPCL;
-	term->c_lflag = ISIG | ICANON | ECHO |
-					ECHOE |	ECHOK | ECHOKE;
+	term->c_lflag = ISIG | ICANON | ECHO
+		| ECHOE | ECHOK | ECHOKE;
 	term->c_oflag = OPOST | ONLCR;
 	term->c_cc[VQUIT] = 0;
 }
