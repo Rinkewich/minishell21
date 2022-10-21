@@ -6,7 +6,7 @@
 /*   By: rdeanne <rdeanne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/08 12:47:45 by rdeanne           #+#    #+#             */
-/*   Updated: 2022/06/14 15:21:53 by rdeanne          ###   ########.fr       */
+/*   Updated: 2022/10/21 11:03:52 by rdeanne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ void	ft_putendl_fd(const char *s, int fd);
 void	ft_putstr_fd(const char	*s, int fd);
 char	*ft_strrchr(const char	*s, int c);
 int		ft_atoi(const char *str);
+char	*ft_itoa(int n);
 char	*ft_strndup(const char *str, int n);
 int		ft_chrpos(char *str, char c);
 char	**ft_split(char const *s, char c);

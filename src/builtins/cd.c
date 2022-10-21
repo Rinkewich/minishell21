@@ -6,7 +6,7 @@
 /*   By: rdeanne <rdeanne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/03 10:51:24 by rdeanne           #+#    #+#             */
-/*   Updated: 2022/10/19 16:00:00 by rdeanne          ###   ########.fr       */
+/*   Updated: 2022/10/21 10:41:14 by rdeanne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,24 @@ void	print_cd_error(const char *path)
 	free(error);
 }
 
+char	*cd_minus(t_list *envp)
+{
+	char	*res;
+
+	if (!get_list(envp, "OLDPWD"))
+	{
+		ft_putstr_fd("minishell: cd: OLDPWD not set\n", STDERR);
+		return (NULL);
+	}
+	res = get_list(envp, "OLDPWD")->val;
+	printf("%s\n", res);
+	return (res);
+}
+
 int	ft_cd(const char *path, t_list *envp)
 {
 	char	dir[MAX_PATH];
 	char	*pwd;
-	char	*tmp_pwd;
 
 	if (!path)
 		return (ft_cd(get_list(envp, "HOME")->val, envp));
@@ -42,16 +55,7 @@ int	ft_cd(const char *path, t_list *envp)
 		return (2);
 	}
 	else if (!ft_strcmp(path, "-"))
-	{
-		if (!get_list(envp, "OLDPWD"))
-		{
-			ft_putstr_fd("minishell: cd: OLDPWD not set\n", STDERR);
-			return (4);
-		}
-		tmp_pwd = get_list(envp, "OLDPWD")->val;
-		printf("%s\n", tmp_pwd);
-		return (ft_cd(tmp_pwd, envp));
-	}
+		return (ft_cd(cd_minus(envp), envp));
 	envp = update_list(envp, ft_strndup("OLDPWD", 6), pwd);
 	if (!getcwd(dir, MAX_PATH))
 		return (3);

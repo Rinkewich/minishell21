@@ -6,7 +6,7 @@
 /*   By: rdeanne <rdeanne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/21 15:57:47 by rdeanne           #+#    #+#             */
-/*   Updated: 2022/10/19 16:08:58 by rdeanne          ###   ########.fr       */
+/*   Updated: 2022/10/21 10:43:03 by rdeanne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,12 +77,13 @@ typedef struct s_shell
 	int		exit_status;
 }	t_shell;
 
-
 void	init_shell(t_shell *shell);
 void	free_shell(t_shell *shell);
 
 // redirection
-
+void	redir_output(t_shell *shell, t_token *token, int type);
+void	redir_input(t_shell *shell, t_token *token);
+void	reset_std(t_shell *shell);
 
 // tokens list
 t_token	*create_token(char *val, int type);

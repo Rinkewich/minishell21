@@ -6,12 +6,11 @@
 /*   By: rdeanne <rdeanne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 11:13:40 by rdeanne           #+#    #+#             */
-/*   Updated: 2022/10/19 15:31:57 by rdeanne          ###   ########.fr       */
+/*   Updated: 2022/10/21 11:05:32 by rdeanne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include "get_next_line.h"
 
 int		g_sigint;
 
