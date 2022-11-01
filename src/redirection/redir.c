@@ -6,7 +6,7 @@
 /*   By: rdeanne <rdeanne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/15 14:28:36 by rdeanne           #+#    #+#             */
-/*   Updated: 2022/10/19 16:21:38 by rdeanne          ###   ########.fr       */
+/*   Updated: 2022/11/01 10:30:01 by rdeanne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,6 @@ void	redir_input(t_shell *shell, t_token *token)
 
 void	reset_std(t_shell *shell)
 {
-	dup2(shell->fdin, STDIN);
-	dup2(shell->fdout, STDOUT);
+	dup2(STDIN, shell->fdin);
+	dup2(STDOUT, shell->fdout);
 }

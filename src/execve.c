@@ -6,7 +6,7 @@
 /*   By: rdeanne <rdeanne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 11:49:13 by rdeanne           #+#    #+#             */
-/*   Updated: 2022/10/19 16:20:51 by rdeanne          ###   ########.fr       */
+/*   Updated: 2022/11/01 10:13:52 by rdeanne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,23 +44,27 @@ int	exec_cmd(char **argv, char **envp, t_shell *shell)
 {
 	char	*cmd_path;
 	char	*path_env;
-	char	*cmd;
 	t_list	*tmp_list;
 	pid_t	pid;
 
-	cmd = argv[0];
 	tmp_list = get_list(shell->env_list, "PATH");
 	if (!tmp_list)
 		return (1);
 	path_env = tmp_list->val;
-	cmd_path = find_cmd_path(cmd, ft_split(path_env, ':'));
+	cmd_path = find_cmd_path(argv[0], ft_split(path_env, ':'));
 	if (!cmd_path)
+	{
+		ft_putstr_fd("minishell: ", STDERR);
+		ft_putstr_fd(argv[0], STDERR);
+		ft_putstr_fd(": command not found\n", STDERR);
 		return (1);
+	}
 	pid = fork();
 	if (pid == 0)
 		execve(cmd_path, argv, envp);
 	else
 		waitpid(pid, NULL, 0);
+	free(cmd_path);
 	return (0);
 }
 

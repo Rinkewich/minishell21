@@ -6,7 +6,7 @@
 /*   By: rdeanne <rdeanne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 11:13:40 by rdeanne           #+#    #+#             */
-/*   Updated: 2022/10/21 11:05:32 by rdeanne          ###   ########.fr       */
+/*   Updated: 2022/11/01 10:05:14 by rdeanne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static void	handler(int signo, siginfo_t *info, void *context)
 	}
 }
 
-void termios_setup(struct termios *term)
+void	termios_setup(struct termios *term)
 {
 	term->c_iflag = BRKINT | ICRNL | IXON
 		| IXANY | IMAXBEL | IUTF8;
