@@ -6,7 +6,7 @@
 /*   By: rdeanne <rdeanne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/04 13:27:18 by rdeanne           #+#    #+#             */
-/*   Updated: 2022/10/19 16:21:03 by rdeanne          ###   ########.fr       */
+/*   Updated: 2022/11/07 14:38:44 by rdeanne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,10 @@ char	**parse_env_str(char *str)
 	return (res);
 }
 
-int	ft_env(t_shell *shell)
+int	ft_env(t_plit *shell)
 {
-	if (!shell->env_list)
+	if (!shell->env)
 		return (0);
-	print_list(shell->env_list);
+	print_list(shell->env);
 	return (0);
 }

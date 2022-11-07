@@ -6,7 +6,7 @@
 /*   By: rdeanne <rdeanne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/03 10:51:24 by rdeanne           #+#    #+#             */
-/*   Updated: 2022/10/21 10:41:14 by rdeanne          ###   ########.fr       */
+/*   Updated: 2022/11/07 15:52:02 by rdeanne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ char	*cd_minus(t_list *envp)
 	return (res);
 }
 
-int	ft_cd(const char *path, t_list *envp)
+int	ft_cd(char *path, t_list *envp)
 {
 	char	dir[MAX_PATH];
 	char	*pwd;

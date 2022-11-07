@@ -6,7 +6,7 @@
 /*   By: rdeanne <rdeanne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/21 15:57:47 by rdeanne           #+#    #+#             */
-/*   Updated: 2022/11/07 11:44:50 by rdeanne          ###   ########.fr       */
+/*   Updated: 2022/11/07 15:52:54 by rdeanne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,63 +41,16 @@
 
 extern int	g_sigint;
 
-typedef struct s_list
-{
-	char			*key;
-	char			*val;
-	struct s_list	*prev;
-	struct s_list	*next;
-}	t_list;
-
-typedef struct s_shell
-{
-	int		fdin;
-	int		fdout;
-	t_list	*env_list;
-	int		exit_flag;
-	int		exit_status;
-}	t_shell;
-
-void	init_shell(t_shell *shell);
-void	free_shell(t_shell *shell);
-
-// redirection
-void	redir_output(t_shell *shell, t_token *token, int type);
-void	redir_input(t_shell *shell, t_token *token);
-void	reset_std(t_shell *shell);
-
-// tokens list
-t_token	*create_token(char *val, int type);
-t_token	*push_token(t_token *head, char *val, int type);
-void	delete_tokens(t_token **head);
-
-// list operations:
-t_list	*create_list(char *key, char *val);
-t_list	*push_list(t_list *head, char *key, char *val);
-t_list	*pop_list(t_list *head);
-t_list	*update_list(t_list *head, char *key, char *val);
-t_list	*delete_env(t_list *head, char *key);
-t_list	*rotate_list(t_list *head);
-t_list	*reverse_rotate_list(t_list *head);
-t_list	*swap_top(t_list *head);
-t_list	*swap_down(t_list *head);
-t_list	*sort_list(t_list *list);
-void	delete_list(t_list **head);
-t_list	*copy_list(t_list *src);
-t_list	*get_list(t_list *head, char *key);
+t_plit	*init_plit(int argc, char **argv, char **env);
 
 // builtins
-int		ft_cd(const char *path, t_list *envp);
-int		ft_echo(char **argv);
+int		ft_cd(char *path, t_list *envp);
+void	ft_echo(t_command *cmd);
 int		ft_pwd(void);
-int		ft_exit(t_shell *shell);
-int		ft_export(t_shell *shell, char *str);
-int		ft_unset(t_shell *shell, char *key);
-int		ft_env(t_shell *shell);
-
-// execve
-int		exec_cmd(char **argv, char **envp, t_shell *shell);
-int		exec_builtin(char **argv, t_shell *shell);
+void	ft_exit(t_command *cmd);
+int		ft_export(t_plit *shell, char **argv);
+int		ft_unset(t_plit *shell, char **argv);
+int		ft_env(t_plit *shell);
 
 // env
 char	**parse_env_str(char *str);

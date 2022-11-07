@@ -6,14 +6,17 @@
 /*   By: rdeanne <rdeanne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/04 13:50:31 by rdeanne           #+#    #+#             */
-/*   Updated: 2022/06/04 13:54:06 by rdeanne          ###   ########.fr       */
+/*   Updated: 2022/11/07 15:57:55 by rdeanne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	ft_unset(t_shell *shell, char *key)
+int	ft_unset(t_plit *shell, char **argv)
 {
-	shell->env_list = delete_env(shell->env_list, key);
+	char	*key;
+
+	key = argv[1];
+	shell->env = delete_env(shell->env, key);
 	return (0);
 }

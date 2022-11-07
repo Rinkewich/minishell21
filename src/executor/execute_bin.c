@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_bin.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fardath <fardath@student.42.fr>            +#+  +:+       +#+        */
+/*   By: rdeanne <rdeanne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/21 02:55:32 by fardath           #+#    #+#             */
-/*   Updated: 2022/11/06 20:54:20 by fardath          ###   ########.fr       */
+/*   Updated: 2022/11/07 15:41:25 by rdeanne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,19 @@
 
 void	execute_bin(t_plit *mini, t_command *cmd, char *path)
 {
+	char	**envp;
+
+	envp = list_to_arrchar(mini->env);
 	duplicate_fdout(cmd->fdout);
 	duplicate_fdin(cmd->fdin);
-	if (execve(path, cmd->argv, mini->env) == -1)
+	if (execve(path, cmd->argv, envp) == -1)
 		perror(NULL);
+	while (!(*envp))
+	{
+		free(*envp);
+		(*envp)++;
+	}
+	free(envp);
 	free(path);
 }
 

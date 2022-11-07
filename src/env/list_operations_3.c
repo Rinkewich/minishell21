@@ -6,7 +6,7 @@
 /*   By: rdeanne <rdeanne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 11:45:27 by rdeanne           #+#    #+#             */
-/*   Updated: 2022/10/19 16:09:19 by rdeanne          ###   ########.fr       */
+/*   Updated: 2022/11/07 15:30:18 by rdeanne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,4 +99,19 @@ t_list	*get_list(t_list *head, char *key)
 		tmp_list = tmp_list->next;
 	}
 	return (NULL);
+}
+
+int	list_size(t_list *a)
+{
+	t_list	*head;
+	int		i;
+
+	i = 1;
+	head = a;
+	while (head->next != a)
+	{
+		head = head->next;
+		i++;
+	}	
+	return (i);
 }

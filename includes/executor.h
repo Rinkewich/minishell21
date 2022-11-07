@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fardath <fardath@student.42.fr>            +#+  +:+       +#+        */
+/*   By: rdeanne <rdeanne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/25 15:20:28 by fardath           #+#    #+#             */
-/*   Updated: 2022/11/06 19:35:08 by fardath          ###   ########.fr       */
+/*   Updated: 2022/11/07 15:12:15 by rdeanne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,20 +59,5 @@ void		open_heredoc(char *filename, t_command *cmd);
 void		open_redirin(char *filename, t_command *cmd);
 void		open_redirout(char *filename, t_command *cmd);
 void		open_redirout_a(char *filename, t_command *cmd);
-
-void		mini_echo(t_command *cmd);
-void		mini_exit(t_command *cmd);
-char		*mini_env(t_plit *mini);
-char		**mini_cd(char **argv, char **env);
-char		**mini_unset(char **argv, char **env);
-char		**unset_var(char *var, char **env);
-char		**export_var(char *arg, char **env);
-char		**mini_export(char **argv, char **env, t_plit *mini);
-void		free_env(char **env);
-
-char		**real_cd(char *target, char **env);
-char		**cd_to_many_arguments(char **env);
-char		**cd_no_arguments(char **env);
-char		**cd_back(char **env);
 
 #endif

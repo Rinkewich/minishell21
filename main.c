@@ -6,7 +6,7 @@
 /*   By: rdeanne <rdeanne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 18:26:58 by fardath           #+#    #+#             */
-/*   Updated: 2022/11/07 10:41:13 by rdeanne          ###   ########.fr       */
+/*   Updated: 2022/11/07 16:22:07 by rdeanne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,7 @@ int	main(int argc, char **argv, char **envp)
 	sigaction(SIGINT, &sa, NULL);
 	split = init_plit(argc, argv, envp);
 	master(split);
+	rl_clear_history();
 	if (tcsetattr(fileno(stdin), TCSANOW, &term) < 0)
 	{
 		perror("Error setting terminal information");

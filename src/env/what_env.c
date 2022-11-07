@@ -6,21 +6,23 @@
 /*   By: rdeanne <rdeanne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 18:12:09 by fardath           #+#    #+#             */
-/*   Updated: 2022/11/07 12:02:49 by rdeanne          ###   ########.fr       */
+/*   Updated: 2022/11/07 16:23:31 by rdeanne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	*join_envvar(t_list *env, char *result, char *line, int len)
+char	*join_envvar(t_list *env, char *result, char *line)
 {
 	t_list	*tmp_list;
+	char	*tmp_str;
 
 	tmp_list = get_list(env, line);
 	if (!tmp_list)
 		return (result);
-	result = ft_strjoin(result, tmp_list->val);
-	return (result);
+	tmp_str = ft_strjoin(result, tmp_list->val);
+	free(result);
+	return (tmp_str);
 }
 
 int	shift_to_separator(char *str)
@@ -54,9 +56,10 @@ void	what_env(t_plit *split, int sq, int dq, int i)
 		if (split->line[i] == '$')
 		{
 			j = shift_to_separator(split->line + ++i);
-			result = join_envvar(split->env, result, split->line + i, j);
+			result = join_envvar(split->env, result, split->line + i);
 			i = i + j;
 		}
 	}
+	free(split->line);
 	split->line = result;
 }

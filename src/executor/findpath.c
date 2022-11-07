@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   findpath.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fardath <fardath@student.42.fr>            +#+  +:+       +#+        */
+/*   By: rdeanne <rdeanne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 19:05:03 by fardath           #+#    #+#             */
-/*   Updated: 2022/11/06 20:52:48 by fardath          ###   ########.fr       */
+/*   Updated: 2022/11/07 15:17:43 by rdeanne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,12 +49,12 @@ char	*find_path_env(char *name, char *envvar)
 
 char	*find_path(t_plit *mini, char *name)
 {
-	char	*envvar;
+	t_list	*tmp_env;
 
 	if (access(name, X_OK) == 0)
 		return (ft_strdup(name));
-	envvar = env_find_val("PATH", mini->env);
-	if (envvar)
-		return (find_path_env(name, envvar));
+	tmp_env = get_list(mini->env, "PATH");
+	if (tmp_env)
+		return (find_path_env(name, tmp_env->val));
 	return (NULL);
 }

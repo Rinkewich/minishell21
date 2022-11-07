@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: fardath <fardath@student.42.fr>            +#+  +:+       +#+         #
+#    By: rdeanne <rdeanne@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/06 17:03:28 by fardath           #+#    #+#              #
-#    Updated: 2022/11/06 17:03:50 by fardath          ###   ########.fr        #
+#    Updated: 2022/11/07 15:56:21 by rdeanne          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,7 +33,6 @@ HEADERS	=	includes/minishell.h includes/libft.h	includes/env.h\
 LIBFTPATH	=	libft
 
 SRC		=	main.c			env_find_val.c	init_plite.c\
-			init_shlvl.c\
 			what_env.c		spliter.c		check_letter.c\
 			check_separator.c	check_quote.c	check_word.c\
 			parser.c		init_parser.c		parser_utils.c\
@@ -45,11 +44,12 @@ SRC		=	main.c			env_find_val.c	init_plite.c\
 			execute_bin.c	execute_builtin.c executor_utils.c\
 			executor_bins.c\
 			\
-			builtins.c	mini_echo.c	mini_cd_utils.c\
-			mini_cd.c	mini_env.c	mini_pwd.c\
-			mini_exit.c	mini_unset.c	mini_export.c\
-			print_errormsg.c\
-
+			builtins.c	echo.c\
+			cd.c	env.c	pwd.c\
+			exit.c	unset.c	export.c\
+			\
+			list_operations_1.c		list_operations_2.c	list_operations_3.c\
+			utils.c
 OBJ		=	$(SRC:%.c=$(OBJDIR)/%.o)
 
 .PHONY	:	all clean fclean re

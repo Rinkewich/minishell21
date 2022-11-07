@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   command.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fardath <fardath@student.42.fr>            +#+  +:+       +#+        */
+/*   By: rdeanne <rdeanne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 12:32:02 by fardath           #+#    #+#             */
-/*   Updated: 2022/11/06 20:54:33 by fardath          ###   ########.fr       */
+/*   Updated: 2022/11/07 15:15:23 by rdeanne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "executor.h"
+#include "minishell.h"
 
 int	*arrint_new(int len)
 {
