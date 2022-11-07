@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   spliter.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fardath <fardath@student.42.fr>            +#+  +:+       +#+        */
+/*   By: rdeanne <rdeanne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 18:38:43 by fardath           #+#    #+#             */
-/*   Updated: 2022/11/06 20:51:44 by fardath          ###   ########.fr       */
+/*   Updated: 2022/11/07 18:00:58 by rdeanne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ void	spliter(t_plit *split)
 		else
 			put_word(data);
 	}
+	free(split->split_line);
 	split->split_line = data->words;
 	free(data);
 }

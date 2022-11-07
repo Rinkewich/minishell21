@@ -6,13 +6,13 @@
 /*   By: rdeanne <rdeanne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 18:26:58 by fardath           #+#    #+#             */
-/*   Updated: 2022/11/07 16:22:07 by rdeanne          ###   ########.fr       */
+/*   Updated: 2022/11/07 17:58:24 by rdeanne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int g_sigint;
+int	g_sigint;
 
 static void	handler(int signo, siginfo_t *info, void *context)
 {
@@ -22,7 +22,7 @@ static void	handler(int signo, siginfo_t *info, void *context)
 	{
 		write(STDOUT, "\n", 1);
 		write(STDOUT, PROMT, ft_strlen(PROMT));
-		g_sigint = 1;
+		g_sigint = -1;
 	}
 }
 
@@ -51,7 +51,7 @@ void	master(t_plit *split)
 		}
 		if (ft_strlen(split->line) == 0 && split->line[0] == 0)
 			;
-		else if (g_sigint != 1)
+		else if (g_sigint != -1)
 		{
 			add_history(split->line);
 			what_env(split, 0, 0, 0);

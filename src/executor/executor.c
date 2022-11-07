@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fardath <fardath@student.42.fr>            +#+  +:+       +#+        */
+/*   By: rdeanne <rdeanne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/29 15:22:01 by fardath           #+#    #+#             */
-/*   Updated: 2022/11/06 20:52:53 by fardath          ###   ########.fr       */
+/*   Updated: 2022/11/07 17:28:15 by rdeanne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void	executor_builtin(t_plit	*mini)
 
 void	execute(t_plit *mini)
 {
-	if (tokens_has_builtin(*mini->tokens))
+	if (tokens_has_builtin(*mini->tokens) || tokens_has_pipe(*mini->tokens))
 		executor_builtin(mini);
 	else
 		execute_bins(mini);

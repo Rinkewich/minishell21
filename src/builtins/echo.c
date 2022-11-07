@@ -6,7 +6,7 @@
 /*   By: rdeanne <rdeanne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 17:14:54 by rdeanne           #+#    #+#             */
-/*   Updated: 2022/11/07 15:50:59 by rdeanne          ###   ########.fr       */
+/*   Updated: 2022/11/07 17:54:14 by rdeanne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,4 +35,3 @@ void	ft_echo(t_command *cmd)
 	printf("%s", new_line);
 	g_sigint = 0;
 }
-

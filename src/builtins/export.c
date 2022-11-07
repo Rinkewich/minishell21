@@ -6,12 +6,11 @@
 /*   By: rdeanne <rdeanne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/04 13:45:49 by rdeanne           #+#    #+#             */
-/*   Updated: 2022/11/07 16:14:47 by rdeanne          ###   ########.fr       */
+/*   Updated: 2022/11/07 17:58:42 by rdeanne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
 
 int	check_env(char *str)
 {

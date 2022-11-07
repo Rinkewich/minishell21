@@ -6,7 +6,7 @@
 /*   By: rdeanne <rdeanne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/21 15:57:47 by rdeanne           #+#    #+#             */
-/*   Updated: 2022/11/07 15:52:54 by rdeanne          ###   ########.fr       */
+/*   Updated: 2022/11/07 17:57:37 by rdeanne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,16 +23,13 @@
 # include <stdlib.h>
 # include <fcntl.h>
 # include <errno.h>
-
 # include <termios.h>
-
 # include "libft.h"
 # include "env.h"
 # include "spliter.h"
 # include "parser.h"
 # include "executor.h"
 
-# define PROMT "minishell-2.1$ \x1B[s"
 # define MAX_PATH 1024
 
 # define STDIN 0

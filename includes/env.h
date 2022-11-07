@@ -6,12 +6,15 @@
 /*   By: rdeanne <rdeanne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 17:36:26 by fardath           #+#    #+#             */
-/*   Updated: 2022/11/07 15:55:59 by rdeanne          ###   ########.fr       */
+/*   Updated: 2022/11/07 17:54:42 by rdeanne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef ENV_H
 # define ENV_H
+
+# define PROMT "\033[7m\033[35mminishell$:\033[0m \x1B[s"
+// # define PROMT "minishell-2.1$ \x1B[s"
 
 # define SEPARATORS " 	<>|$\"\'"
 
