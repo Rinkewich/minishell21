@@ -1,18 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse.c                                            :+:      :+:    :+:   */
+/*   post_execution.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rdeanne <rdeanne@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fardath <fardath@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/31 15:39:23 by rdeanne           #+#    #+#             */
-/*   Updated: 2022/05/31 17:05:58 by rdeanne          ###   ########.fr       */
+/*   Created: 2022/06/21 02:53:47 by fardath           #+#    #+#             */
+/*   Updated: 2022/11/06 18:11:23 by fardath          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	parse_line(char *line, t_shell *shell)
+void	post_execution(t_plit *mini)
 {
-	
+	clear_tokens(*mini->tokens);
+	free(mini->tokens);
+	mini->tokens = NULL;
 }

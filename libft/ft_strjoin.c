@@ -3,38 +3,29 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rdeanne <rdeanne@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fardath <fardath@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/14 18:44:13 by rdeanne           #+#    #+#             */
-/*   Updated: 2022/04/12 14:52:39 by rdeanne          ###   ########.fr       */
+/*   Created: 2021/10/19 17:04:18 by fardath           #+#    #+#             */
+/*   Updated: 2022/11/06 17:10:48 by fardath          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strjoin(char *s1, char *s2)
+char	*ft_strjoin(char const *s1, char const *s2)
 {
-	size_t	i;
-	size_t	j;
-	char	*res;
+	char	*nstr;
+	size_t	s1_len;
+	size_t	s2_len;
 
-	if (!s1)
-	{
-		s1 = (char *)malloc(1 * sizeof(char));
-		s1[0] = '\0';
-	}
-	if (!s1 || !s2)
+	if (s1 == NULL || s2 == NULL)
 		return (NULL);
-	res = malloc(sizeof(char) * ((ft_strlen(s1) + ft_strlen(s2)) + 1));
-	if (res == NULL)
+	s1_len = ft_strlen(s1);
+	s2_len = ft_strlen(s2);
+	nstr = (char *) malloc(sizeof(char) * (s1_len + s2_len + 1));
+	if (nstr == NULL)
 		return (NULL);
-	i = -1;
-	j = 0;
-	while (s1[++i] != '\0')
-		res[i] = s1[i];
-	while (s2[j] != '\0')
-		res[i++] = s2[j++];
-	res[ft_strlen(s1) + ft_strlen(s2)] = '\0';
-	free(s1);
-	return (res);
+	ft_strlcpy(nstr, s1, s1_len + 1);
+	ft_strlcat(nstr, s2, s1_len + s2_len + 1);
+	return (nstr);
 }

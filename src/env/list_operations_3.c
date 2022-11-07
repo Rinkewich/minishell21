@@ -6,38 +6,37 @@
 /*   By: rdeanne <rdeanne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 11:45:27 by rdeanne           #+#    #+#             */
-/*   Updated: 2022/06/14 13:01:47 by rdeanne          ###   ########.fr       */
+/*   Updated: 2022/10/19 16:09:19 by rdeanne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-
 t_list	*sort_list(t_list *head)
 {
-	t_list	*current;
+	t_list	*cur;
 	t_list	*index;
 
-	current = head;
-	while (current->next != head)
+	cur = head;
+	while (cur->next != head)
 	{
-		index = current->next;
-		if (ft_strncmp(current->key, index->key, ft_strlen(current->key)) > 0)
+		index = cur->next;
+		if (ft_strncmp(cur->key, index->key, ft_strlen(cur->key)) > 0)
 		{
-			ptr_swap(&current->key, &index->key);
-			ptr_swap(&current->val, &index->val);
+			ptr_swap(&cur->key, &index->key);
+			ptr_swap(&cur->val, &index->val);
 		}
 		index = index->next;
 		while (index != head)
 		{
-			if (ft_strncmp(current->key, index->key, ft_strlen(current->key)) > 0)
+			if (ft_strncmp(cur->key, index->key, ft_strlen(cur->key)) > 0)
 			{
-				ptr_swap(&current->key, &index->key);
-				ptr_swap(&current->val, &index->val);
+				ptr_swap(&cur->key, &index->key);
+				ptr_swap(&cur->val, &index->val);
 			}
 			index = index->next;
 		}
-		current = current->next;
+		cur = cur->next;
 	}
 	return (head);
 }
@@ -67,20 +66,20 @@ t_list	*delete_env(t_list *head, char *key)
 t_list	*copy_list(t_list *src)
 {
 	t_list	*dst;
-	t_list	*current;
+	t_list	*cur;
 	char	*key;
 	char	*val;
 
 	key = ft_strndup(src->key, ft_strlen(src->key));
 	val = ft_strndup(src->val, ft_strlen(src->val));
 	dst = create_list(key, val);
-	current = src->next;
-	while (current != src)
+	cur = src->next;
+	while (cur != src)
 	{
-		key = ft_strndup(current->key, ft_strlen(current->key));
-		val = ft_strndup(current->val, ft_strlen(current->val));
+		key = ft_strndup(cur->key, ft_strlen(cur->key));
+		val = ft_strndup(cur->val, ft_strlen(cur->val));
 		dst = push_list(dst, key, val);
-		current = current->next;
+		cur = cur->next;
 	}
 	return (dst);
 }

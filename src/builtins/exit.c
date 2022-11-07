@@ -6,7 +6,7 @@
 /*   By: rdeanne <rdeanne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 17:11:22 by rdeanne           #+#    #+#             */
-/*   Updated: 2022/06/08 15:43:34 by rdeanne          ###   ########.fr       */
+/*   Updated: 2022/09/15 14:09:59 by rdeanne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,5 +17,5 @@ int	ft_exit(t_shell *shell)
 	printf("exit\n");
 	free_shell(shell);
 	shell->exit_flag = 1;
-	exit(0);
+	return (0);
 }

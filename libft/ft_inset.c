@@ -17,6 +17,8 @@ int	ft_inset(char c, char const *set)
 	int	count;
 
 	count = 0;
+	if (!set)
+		return (0);
 	while (set[count])
 	{
 		if (c == set[count])

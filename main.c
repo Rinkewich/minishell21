@@ -5,56 +5,102 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: rdeanne <rdeanne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/24 11:13:40 by rdeanne           #+#    #+#             */
-/*   Updated: 2022/06/14 14:24:12 by rdeanne          ###   ########.fr       */
+/*   Created: 2022/10/28 18:26:58 by fardath           #+#    #+#             */
+/*   Updated: 2022/11/07 10:41:13 by rdeanne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+int g_sigint;
+
+static void	handler(int signo, siginfo_t *info, void *context)
+{
+	(void)context;
+	(void)info;
+	if (signo == SIGINT)
+	{
+		write(STDOUT, "\n", 1);
+		write(STDOUT, PROMT, ft_strlen(PROMT));
+		g_sigint = 1;
+	}
+}
+
+void	termios_setup(struct termios *term)
+{
+	term->c_iflag = BRKINT | ICRNL | IXON
+		| IXANY | IMAXBEL | IUTF8;
+	term->c_cflag = CSIZE | CREAD | HUPCL;
+	term->c_lflag = ISIG | ICANON | ECHO
+		| ECHOE | ECHOK | ECHOKE;
+	term->c_oflag = OPOST | ONLCR;
+	term->c_cc[VQUIT] = 0;
+}
+
+void	master(t_plit *split)
+{
+	while (1)
+	{
+		g_sigint = 0;
+		split->line = readline(PROMT);
+		if (!split->line)
+		{
+			g_sigint = 128 - 1;
+			printf("\x1B[u\x1B[Aexit\n");
+			exit(g_sigint);
+		}
+		if (ft_strlen(split->line) == 0 && split->line[0] == 0)
+			;
+		else if (g_sigint != 1)
+		{
+			add_history(split->line);
+			what_env(split, 0, 0, 0);
+			spliter(split);
+			parser(split);
+			execute(split);
+		}
+		free(split->line);
+	}
+}
+
+int	setup_terminal_settings(struct termios *term)
+{
+	struct termios	original;
+
+	if (tcgetattr(fileno(stdin), term) < 0)
+	{
+		perror("Error getting terminal information");
+		return (-1);
+	}
+	original = *term;
+	termios_setup(term);
+	if (tcsetattr(fileno(stdin), TCSANOW, term) < 0)
+	{
+		perror("Error setting terminal information");
+		return (-1);
+	}
+	*term = original;
+	return (0);
+}
+
 int	main(int argc, char **argv, char **envp)
 {
-	// char				*line;
-	// char				**splited_line;
-	t_shell				*shell;
+	t_plit				*split;
+	struct sigaction	sa;
+	struct termios		term;
 
-	(void)argc;
-	(void)argv;
-	(void)envp;
-	shell = malloc(sizeof(t_shell));
-	init_shell(shell);
-	init_env(shell, envp);
-	// while (!shell->exit_flag)
-	// {
-	// 	line = readline(PROMT);
-	// 	if (!line)
-	// 	{
-	// 		printf("exit\n");
-	// 		free_shell(shell);
-	// 		return (0);
-	// 	}
-	// 	add_history(line);
-	// 	splited_line = ft_split(line, ' ');
-	// 	if (splited_line[0])
-	// 		exec_cmd(splited_line[0], splited_line, envp, shell);
-
-		ft_env(shell);
-		// ft_export(shell, "aaa=1");
-		// ft_export(shell, "aaaaaa=2");
-		// ft_unset(shell, "aaa");
-		// ft_export(shell, "a=3");
-		// ft_export(shell, "");
-		// printf("\n");
-		// ft_env(shell);
-		// printf("\n");
-		// ft_echo("hello world!", 0);
-		// ft_export(shell, "b=2");
-		// ft_export(shell, "c=3");
-		// ft_env(shell);
-		// ft_export(shell, "");
-		// ft_unset(shell, "asd");
-		// parse_line(line, shell);
-		// free(line);
-	// }
+	g_sigint = 0;
+	if (setup_terminal_settings(&term) == -1)
+		return (-1);
+	sa.sa_flags = SA_SIGINFO;
+	sa.sa_sigaction = &handler;
+	sigaction(SIGINT, &sa, NULL);
+	split = init_plit(argc, argv, envp);
+	master(split);
+	if (tcsetattr(fileno(stdin), TCSANOW, &term) < 0)
+	{
+		perror("Error setting terminal information");
+		return (-1);
+	}
 	return (0);
 }

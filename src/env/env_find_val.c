@@ -1,37 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init.c                                             :+:      :+:    :+:   */
+/*   env_find_val.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rdeanne <rdeanne@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/24 14:21:03 by rdeanne           #+#    #+#             */
-/*   Updated: 2022/06/08 16:53:05 by rdeanne          ###   ########.fr       */
+/*   Created: 2022/10/25 18:05:22 by fardath           #+#    #+#             */
+/*   Updated: 2022/11/07 12:09:14 by rdeanne          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	init_shell(t_shell *shell)
+char	*env_find_val(char *val, t_list *env)
 {
-	shell->exit_flag = 0;
-	shell->env_list = NULL;
-}
+	t_list	*tmp_env;
+	char	*result;
 
-void	init_env(t_shell *shell, char **envp)
-{
-	int		i;
-	char	**env_str;
-
-	i = 0;
-	shell->env_list = NULL;
-	while (envp[i])
+	if (ft_strlen(val) == 1 && val[0] == '?')
 	{
-		env_str = parse_env_str(envp[i]);
-		shell->env_list = rotate_list(push_list(shell->env_list, env_str[0], env_str[1]));
-		free(env_str);
-		i++;
+		result = ft_itoa(g_sigint);
+		return (result);
 	}
-	// update_env(shell->env, env);
-	// print_list(env);
+	tmp_env = get_list(env, val);
+	result = ft_strdup(tmp_env->val);
+	return (result);
 }
